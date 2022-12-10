@@ -64,23 +64,25 @@ if __name__ == '__main__':
 
     with open(fn) as f:
       lines = f.read().splitlines()
-      # 2行目の日付を取得
-      dtString = lines[1].replace(' ', '-').replace(':', '-')
+      # 日付パターン
+      dtpat = r'^(Sun|Mon|Tue|Wed|Thu|Fri|Sat)\s+'
       # データ部を処理
       uList = []
       wDict = {}
       for l in lines:
+        # 日付行を処理
+        if re.match(dtpat, l):
+          dtString = l.replace(' ', '-').replace(':', '-')
         # p で始まる行のみ処理
         if l.startswith('p'):
-          tokens = l.split('\t')
-          pat = r'p\d+\/(.*)\/.*\((\d+)\%\)'
-          u1, p1 = re.match(pat, tokens[0]).groups()
-          u2, p2 = re.match(pat, tokens[1]).groups()
+          pat = r'p\d+\/(\w+)\/.+\s+\((\d+)\%\)'
+          lpat = pat + r'\s+' + pat + r'\s+(\d+)'
+          u1, p1, u2, p2, m = re.match(lpat, l).groups()
           # ユーザーリストに追加
           uList.append(u1)
           uList.append(u2)
           # weight は百分率の平均 * matchした行数
-          w = (float(p1)+float(p2))/200 * int(tokens[2])
+          w = (float(p1)+float(p2))/200 * int(m)
           # ユーザータプルをソート
           uTuple = tuple(sorted((u1,u2)))
           # weight が無いかより小さい値なら設定（複数あれば最大値を設定する）
