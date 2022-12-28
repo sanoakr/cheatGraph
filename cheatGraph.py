@@ -35,6 +35,7 @@ def plot_weighted_network(uset, wdict, out=True, fout='tmp.png', show=False, spr
 
   # draw network
   plt.figure(figsize=(10,10))
+  plt.title(fout)
   pos = nx.spring_layout(G, k=spring_k)
   weights = nx.get_edge_attributes(G, 'weight').values()
   nx.draw_networkx(G, pos = pos,
