@@ -6,11 +6,14 @@ a graph generater from MOSS output
 - networkx
 - matplotlib
 ## How to Use
-> python3 cheatGraph.py ex1-p1.txt
-> python3 cheatGraph.py ex1-*
-
-> w3m -dump -cols 120 http://moss.stanford.edu/results/1/1234567890/ > ex01-p1.txt
-> python3 cheatGraph.py ex1-p1.txt
+```
+python3 cheatGraph.py ex1-p1.txt
+python3 cheatGraph.py ex1-*
+```
+```
+w3m -dump -cols 120 http://moss.stanford.edu/results/1/1234567890/ > ex01-p1.txt
+python3 cheatGraph.py ex1-p1.txt
+```
 
 - [Moss](https://theory.stanford.edu/~aiken/moss/) 出力のPlain Textファイルを引数指定すると、graph ディレクトリ配下にグラフを png 出力します。
 - 入力ファイルは Moss results ページのコピペ、あるいは w3m でダンプしたものを想定しています。ｗ3m でダンプする場合は、-cols で大きめの画面幅を指定してください。ユーザ名や提出ファイル名が長いと dump テキストが途中で改行されてしまいうまく処理されません。
